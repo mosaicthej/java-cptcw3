@@ -46,13 +46,13 @@ CRC code is used to verify whether the data packet is changed during the transmi
 
 3. Combine the header, data length, data segment, CRC code and tail into a data packet.
 
-   For example, we want to send a string “123A” to a remote user via the Internet.
+   For example, we want to send a string ```123A``` to a remote user via the Internet.
 
-   1. First, we should convert the string “123A” into a hexadecimal value of “31323341”. 
-      1. “31”, ”32”, ”33” and ”41” are the hexadecimal value of each character in the data string “123A”. 
-   2. Second, we can calculate and get a CRC code “7BD7” based on the hexadecimal string “31323341”. 
-   3. Third, we combine the packet header, tail and the data length with the hexadecimal value and CRC code and get a hexadecimal data packet of “AA04313233417BD7BB”. 
-      1. “AA” and “BB” are the header and tail of the data packet, “04” represents the length of data. “31323341” is the hexadecimal value of string “123A”, “7BD7” is the CRC code.
+   1. First, we should convert the string ```123A``` into a hexadecimal value of ```31323341```. 
+      1. ```31```, ```32```, ```33``` and ```41``` are the hexadecimal value of each character in the data string ```123A```. 
+   2. Second, we can calculate and get a CRC code ```7BD7``` based on the hexadecimal string ```31323341```. 
+   3. Third, we combine the packet header, tail and the data length with the hexadecimal value and CRC code and get a hexadecimal data packet of ```AA04313233417BD7BB```. 
+      1. ```AA``` and ```BB``` are the header and tail of the data packet, ```04``` represents the length of data. ```31323341``` is the hexadecimal value of string ```123A```, ```7BD7``` is the CRC code.
 
 ```java
 /*return a 2 byte CRC code from a byte array*/
@@ -83,48 +83,47 @@ private static String getCRC(byte[] bytes) {
 
 Please follow the steps below to complete the task:
 
-1. Create an empty java project. The project name should be “Packet”+ your student ID
-2. Create a class “CRC16” in your project
-   1. Copy the method “getCRC(byte[] bytes)” into your CRC16 class.
-   2. Define an overloading static method “getCRC(String hexData)”, which can invoke the method “getCRC(byte[] bytes)” and return a CRC code based on the string “hexData”. 
-      1. For example, get a CRC code of “7BD7” from the hexadecimal string of “31323341”.
+1. Create an empty java project. The project name should be ```Packet```+ your student ID
+2. Create a class ```CRC16``` in your project
+   1. Copy the method ```getCRC(byte[] bytes)``` into your CRC16 class.
+   2. Define an overloading static method ```getCRC(String hexData)```, which can invoke the method ```getCRC(byte[] bytes)``` and return a CRC code based on the string ```hexData```. 
+      1. For example, get a CRC code of ```7BD7``` from the hexadecimal string of ```31323341```.
 
-3) Create a class “DataPacket”.
-   1) Define a method “stringToHex(String str)” to convert a common string into a hexadecimal string. For example, convert string “123A” to “31323341”.
-   2) Define a method “convertToDataPacket(String data)”, which can encapsulate a string into a data packet and return a hexadecimal string, as Table 1 shows. For example, the method will return “AA04313233417BD7BB” if we invoke it with a parameter of “123A”.
+3) Create a class ```DataPacket```.
+   1) Define a method ```stringToHex(String str)``` to convert a common string into a hexadecimal string. For example, convert string ```123A``` to ```31323341```.
+   2) Define a method ```convertToDataPacket(String data)```, which can encapsulate a string into a data packet and return a hexadecimal string, as Table 1 shows. For example, the method will return ```AA04313233417BD7BB``` if we invoke it with a parameter of ```123A```.
    
-4) Create a class “Q1” and achieve the following functions in its main method.
+4) Create a class ```Q1``` and achieve the following functions in its main method.
 
    ![image-20211217041847574](imgSources/image-20211217041847574.png)
    1) Create a frame window as below;
    2)  Create a ```DataPacket``` object in the main method;
-   3) When users click “Data to packet” button, the string in the raw data field can be encapsulated into a data packet string and show in the data packet field.
-   4) When users click “Packet to data” button, it can retrieve the data string from the data packet field and show it in the raw data field.
+   3) When users click ```Data to packet``` button, the string in the raw data field can be encapsulated into a data packet string and show in the data packet field.
+   4) When users click ```Packet to data``` button, it can retrieve the data string from the data packet field and show it in the raw data field.
 
 ## Part A2  MultiDataPacket（20 marks）
 
 Sometimes, we need to transfer several data within one data packet to improve data transmission efficiency. 
 
-For example, if we send two strings of “ABC” and “123A” in one data packet, the hexadecimal value of the data packet is “AA034142435085BBAA04313233417BD7BB”. 
+For example, if we send two strings of ```ABC``` and ```123A``` in one data packet, the hexadecimal value of the data packet is ```AA034142435085BBAA04313233417BD7BB```. 
 
 In addition, we should check the validation of the data packet before we retrieve data from it. If the data packet is not valid, we should throw an exception. 
 
 Please follow the steps below to complete the task.
 
-请按照以下步骤完成任务。
 
-1. Create an exception class “DataPacketException”, which is inherited from “Exception”.
+1. Create an exception class ```DataPacketException```, which is inherited from ```Exception```.
    
-   1. Create a constructor “DataPacketException (int id, String message)” to create an exception object with an id and a message string.
+   1. Create a constructor ```DataPacketException (int id, String message)``` to create an exception object with an id and a message string.
    2. Create 1 method to retrieve the id from the exception.
-   3. Override the method “toString()” to return a string with the id and message
+   3. Override the method ```toString()``` to return a string with the id and message
    
-2. Create a subclass “MultiDataPacket” based on the base class “DataPacket”.
-   1. Create an overloading method “String[] stringToHex(String[] str)”, which can convert an array of common strings to an array of hexadecimal strings.
-   2. Create an overloading method “String convertToHexDataPacket (String[] data)”, which can convert an array of common strings to a ```MultiDataPacket ```with a single hexadecimal string.
-   3. Create a new method “String[] GetMultiDataFromHexDataPacket (String hexData)” to retrieve and return several data from the ```MultiDataPacket ```string “hexData”. The method should validate the header, tail, length and CRC code for each data packet in the string “hexData” and throw a “DataPacketException” exception when any validation is failed.
+2. Create a subclass ```MultiDataPacket``` based on the base class ```DataPacket```.
+   1. Create an overloading method ```String[] stringToHex(String[] str)```, which can convert an array of common strings to an array of hexadecimal strings.
+   2. Create an overloading method ```String convertToHexDataPacket (String[] data)```, which can convert an array of common strings to a ```MultiDataPacket ```with a single hexadecimal string.
+   3. Create a new method ```String[] GetMultiDataFromHexDataPacket (String hexData)``` to retrieve and return several data from the ```MultiDataPacket ```string ```hexData```. The method should validate the header, tail, length and CRC code for each data packet in the string ```hexData``` and throw a ```DataPacketException``` exception when any validation is failed.
 
-3. Create a class “Q2” and achieve the following functions in its main method.
+3. Create a class ```Q2``` and achieve the following functions in its main method.
 
    1. Create a frame window as below![image-20211217042757985](imgSources/image-20211217042757985.png)
 
@@ -132,9 +131,9 @@ Please follow the steps below to complete the task.
 
    2. Create a MultiDataPacket object in the main method;
 
-   3. Users can input strings into the 3 text fields (raw data 1~raw data 3). When users click the “Data to multi packet” button, strings in 3 text fields can be encapsulated into a hexadecimal string and shown in the “multi data packet” text field.
+   3. Users can input strings into the 3 text fields (raw data 1~raw data 3). When users click the ```Data to multi packet``` button, strings in 3 text fields can be encapsulated into a hexadecimal string and shown in the ```multi data packet``` text field.
 
-   4. When users click “Multi packet to data” button, we can retrieve all the separate data from the “multi data packet” text field and show them in the 3 text fields (raw data 1~raw data 3), respectively.
+   4. When users click ```Multi packet to data``` button, we can retrieve all the separate data from the ```multi data packet``` text field and show them in the 3 text fields (raw data 1~raw data 3), respectively.
 
    5. You should use a message dialogue to show any exceptions raised in your program. Below is an example for your reference.
 
@@ -146,28 +145,28 @@ CW3 Part B will contribute 50% of the total marks.
 
 The system has several classes as follows:
 
-1. create a class “Course” to represent the course information of the management system. It should have at least 2 member variables of “courseId” and “courseName”.
+1. create a class ```Course``` to represent the course information of the management system. It should have at least 2 member variables of ```courseId``` and ```courseName```.
 
-2. Create a class “Person”. It has at least 2 member variables of “name” and “gender”. Gender should be an enum type with two values of “MALE” and “FEMALE”.
+2. Create a class ```Person```. It has at least 2 member variables of ```name``` and ```gender```. Gender should be an enum type with two values of ```MALE``` and ```FEMALE```.
 
-3. Create a class “Student” inherited from the base class “Person” to represent student information. It has at least 1 new member variable of “stuId”.
+3. Create a class ```Student``` inherited from the base class ```Person``` to represent student information. It has at least 1 new member variable of ```stuId```.
 
-4. Create a class “Teacher” inherited from the base class “Person” to represent teacher information. It has at least 3 new member variables of “teacherId”, “loginName” and “password”.
+4. Create a class ```Teacher``` inherited from the base class ```Person``` to represent teacher information. It has at least 3 new member variables of ```teacherId```, ```loginName``` and ```password```.
 
-5. Create a class “Grade” to represent the grade of a module for a student. It has at least 3 member variables of “stuId”, “courseId” and “grade” to represent student id, course id and the grade of a course for the student.
+5. Create a class ```Grade``` to represent the grade of a module for a student. It has at least 3 member variables of ```stuId```, ```courseId``` and ```grade``` to represent student id, course id and the grade of a course for the student.
 
-6. Complete the class “Encryption” by fixing compilation errors and including suitable exception handling, for which we have provided most of the codes, to encrypt and decrypt teacher’s password.
+6. Complete the class ```Encryption``` by fixing compilation errors and including suitable exception handling, for which we have provided most of the codes, to encrypt and decrypt teacher’s password.
 
-7. Create a class “FileUtils”, which can be used to create plain text files to save objects of students, teachers, courses and grades, respectively. In addition, it should provide methods to retrieve objects from files. To achieve this, classes of Student, Teacher, Course and Grade should implement an interface of Serializable.
+7. Create a class ```FileUtils```, which can be used to create plain text files to save objects of students, teachers, courses and grades, respectively. In addition, it should provide methods to retrieve objects from files. To achieve this, classes of Student, Teacher, Course and Grade should implement an interface of Serializable.
 
-8. Create a class “DataAccess”, which invokes FileUtils class to create and save objects (Student, Course, Grade and Teacher) into 4 different plain text files. The class should use ArrayList to save objects retrieved from files. In addition, it can search and return objects according to the object’s id. For example, the method “Student getStudentById(String stuId)” can search and return a student object by the student Id
+8. Create a class ```DataAccess```, which invokes FileUtils class to create and save objects (Student, Course, Grade and Teacher) into 4 different plain text files. The class should use ArrayList to save objects retrieved from files. In addition, it can search and return objects according to the object’s id. For example, the method ```Student getStudentById(String stuId)``` can search and return a student object by the student Id
 
-9. Create a class “Q3” and achieve the following functions in its main method.
+9. Create a class ```Q3``` and achieve the following functions in its main method.
    1. Create an operation menu as follows:![image-20211217043431249](imgSources/image-20211217043431249.png)
 
    2. Users can input a number to run a related function.
 
-   3. When users input 1, then users can input student’s Id, name and gender to create a student object and append it into a student data file. Users can continuously create several student objects until “-1” is inputted. The following picture shows that the user creates 2 student objects and saves them into the student data file.
+   3. When users input 1, then users can input student’s Id, name and gender to create a student object and append it into a student data file. Users can continuously create several student objects until ```-1``` is inputted. The following picture shows that the user creates 2 student objects and saves them into the student data file.
 
       ![image-20211217043518971](imgSources/image-20211217043518971.png)
 
@@ -195,11 +194,11 @@ Part C will contribute to 15% of the total marks.
 
 ## Javadoc comment
 
-Write appropriate Javadoc comments in class “FileUtils”, generate the Javadoc HTML from that and convert and submit the Javadoc in PDF format. <br>(5 marks)
+Write appropriate Javadoc comments in class ```FileUtils```, generate the Javadoc HTML from that and convert and submit the Javadoc in PDF format. <br>(5 marks)
 
 ## Class Diagram
 
-Complete the UML class diagrams of class Person, Teacher and DataAccess in one PDF file<br> (10 marks)
+Complete the UML class diagrams of class ```Person```, ```Teacher ```and ```DataAccess ```in one PDF file<br> (10 marks)
 
 *The javadoc and class diagrams should be put into one single PDF report for submission*
 
