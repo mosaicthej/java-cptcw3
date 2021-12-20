@@ -74,7 +74,7 @@ private static String getCRC(byte[] bytes) {
     String result = Integer.toHexString(CRC).toUpperCase();
     if (result.length()!=4){
         StringBuffer sb = new StringBuffer("0000");
-        result = sb.replace(4=result.length(), 4, result).toString();
+        result = sb.replace(4-result.length(), 4, result).toString();
     }
 
     return result.substring(2,4) + result.substring(0,2);
