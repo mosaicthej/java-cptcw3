@@ -1,0 +1,273 @@
+xor
+
+
+
+1 
+0
+
+AND, OR
+
+truth table:
+(x AND y)
+x和y都是1
+x | y | x AND y
+0 | 0 | 0
+1 | 0 | 0
+0 | 1 | 0
+1 | 1 | 1
+
+x OR y
+任意一个x或y是1
+x | y | x OR y
+0 | 0 | 0
+1 | 0 | 1
+0 | 1 | 1
+1 | 1 | 1
+
+(x XOR y) exclusive or:
+x 或 y，但是不能x和y
+x | y | x XOR y
+0 | 0 | 0
+1 | 0 | 1
+0 | 1 | 1
+1 | 1 | 0
+
+
+24 = 16 + 8 + 0....
+= 1*(2^4) + 1*(2^3) + 0*(2^2) + 0*(2^1) + 0*(2^0) 
+1 1 0 0 0
+
+27 = 16 + 8 + 2 + 1
+= 1*(2^4) + 1*(2^3) + 0*(2^2) + 1*(2^1) + 1*(2^0) 
+1 1 0 1 1
+
+24 XOR 27
+
+1 1 0 0 0 
+1 1 0 1 1
+XOR
+-------------
+0 0 0 1 1
+
+
+1 1 0 0 0 
+1 1 0 1 1
+AND
+-------------
+1 1 0 0 0
+
+bit logic operation
+按位逻辑运算
+
+
+数据：被除数（可以非常大）
+CRC多项式：固定数值（除数）
+CRC码：余数（长度<=除数长度）
+
+89 / 12 = 7 .... 5
+
+(89-5) / 12 = 84 / 12 = 7....0
+
+把CRC码（余数）和数据一起发送出去
+接收方：用数据减去CRC码，除以多项式，如果余数=0，那么数据无误。
+
+
+
+-------------------
+Finite Field（场论）
+Field 要求：
+1. 加法有定义
+2. 乘法有定义
+3. 每个数字有一个加法的中性数（0存在）：
+ a + 0 = a
+4. 每个数字都有一个加法的相反数（-a存在）：
+for all a, there is b that : a+b = 0
+
+3. 每个数字有一个乘法的中性数（1存在）：
+ a * 1 = a
+4. 每个数字（除0外）都有一个除法的相反数（a^-1存在）：
+for all a!=0, there is b that : a * b = 1;
+
+(all integers is not a field):
+
+5. 分配律存在：
+（a+b）*c = a*c + b*c
+c*（a+b） = c*a + c*b
+
+============================
+
+Define a field:
+only 0 and 1:
+0 + 0 = 0
+0 + 1 = 1
+1 + 0 = 1
+1 + 1 = 0
++ is XOR
+
+0 * 0 = 0
+1 * 0 = 0
+0 * 1 = 0
+1 * 1 = 1
+* is AND
+
+
+除法 = XOR
+
+=================
+
+0-9: 0-9
+
+a = 11; b = 12; .....; f = 15
+
+60 --> 32 + 16 + .....
+
+
+
+0111 0000 1100
+70C
+7: 0111
+0: 0000
+C: 1100
+
+
+==================
+
+0-127:
+0000 0000
+00
+0000 0001
+01
+0000 0010
+
+.....
+0111 1111
+7F
+
+
+A: 41
+B: 42
+
+"ABABBA"
+hex=414241424241
+
+
+
+String.format("%1$02X")
+%1: 第一个变量
+$02: 长度为2，0如果有空位，用0补上
+X：
+
+
+
+
+
+int i = 5;
+int j = 20*i
+// (100)
+System.out.print("a %i %i", j, i); // a 100 5
+System.out.print("b");
+
+ab
+
+==================
+
+public static String stringToHex(String inp){
+        String s = "";
+        
+        for (char c: inp.toCharArray()){
+            String s_x = Integer.toHexString(c);
+
+            s += s_x;
+        }
+
+        return s;
+}
+
+.toCharArray() - 返回一个char的array。
+
+=======================
+
+H=72 -> (48)
+ ("48")
+
+48(hex) = 4*(16^1) + 8*(16^0) = 64 + 8 = 72
+
+========================
+
+int[10] a;
+a[18] --> indexOutOfRange.
+
+Except IndexOutOfRangeError:
+	<default: 程序崩溃>
+	<user defined:>
+	Println(输超了，数字控制在10以下，谢谢）
+=========================
+
+public class e1 extends Exception {
+
+	public e1(int id, String message){
+
+	};
+}	
+
+==========================
+
+class Human{
+	private String name;
+	String gender;
+	int age;
+	
+	public Human(String name, String gender){
+		this.name = name;
+		this.gender = gender;
+		this.age = 0;
+
+	}
+
+	public void aging(self){
+		this.age ++;
+	}
+
+	public int getAge(){
+		return(this.age);
+	}
+
+	public String getName(){
+		return this.Name;	
+	}
+	
+	public bool isOrderThan(self, Human h){
+		return (this.age > h.age);
+	}
+
+	@override
+	private String toString(){
+		info = "";
+		info += "Name: "+ this.name
+			+ "is " + (String) this.age 
+			+ " years old";
+		return info;
+	}
+} 
+
+**** in other files in the same package ********
+// 造一个人：
+Human a = new Human("Adam", "M");
+a.age(); a.age(); for(i=0;i<10;i++){a.age();}
+print(a.name); // "Adam"
+
+Human b = new Human("Kate", "F");
+print(b.name); // "Kate"
+
+a.isOrderThan(b); // true;
+
+// print 这个人的详情。
+
+print(a);
+// Name: Adam is 12 year old
+
+a.name = ....
+// Error: variable name not found.
+
+print("name is " + a.getName());
+
