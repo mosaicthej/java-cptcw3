@@ -27,7 +27,7 @@ public class Main {
 
         System.out.print("Testing: DataPacket.convertToDataPacket('123A'), expecting AA04313233417BD7BB, result: ");
         System.out.println( // expecting AA04313233417BD7BB
-                DataPacket.convertToDataPacket("ABC123A")
+                DataPacket.convertToDataPacket("123A")
         );
 
 

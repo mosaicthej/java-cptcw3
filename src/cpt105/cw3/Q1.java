@@ -60,6 +60,36 @@ public class Q1{
             }
         });
 
+        // when clicked on "package to data"
+        b_p2d.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // grab the text from 'Raw data' field
+                // convert the text to package form
+                // put the text to 'Data package'
+
+                String dat = t_dp.getText();
+                dat = dat.substring(4,dat.length()-6);
+
+                String dat_str = "";
+                byte i0, i1;
+                char c;
+                for (int i = 0; i < dat.length()/2; i++) {
+                    i0 = Byte.parseByte(dat.substring(2*i,2*i+1));
+                    i1 = Byte.parseByte(dat.substring(2*i+1,2*i+2));
+
+                    i0 = (byte) (i0<<4);
+                    i0 += i1;
+
+                    c = (char) i0;
+                    dat_str += c;
+                }
+                t_rd.setText(dat_str);
+            }
+        });
+
 
     }
+
+
 }

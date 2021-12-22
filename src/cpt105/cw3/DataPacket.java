@@ -17,11 +17,12 @@ public class DataPacket {
      */
     public static String stringToHex(String inp){
         String s = "";
-        for(int i = 0; i< inp.length(); i++){
-            int ch = inp.charAt(i);
-            String s4 = Integer.toHexString(ch);
-            s = s + s4;
+
+        for (char c: inp.toCharArray()){
+            String s_x = Integer.toHexString(c);
+            s += s_x;
         }
+
         return s;
     }
 
@@ -32,8 +33,11 @@ public class DataPacket {
      */
     public static String convertToDataPacket(String data){
         int l = data.length();
-        // https://stackoverflow.com/a/45495982/9499956
-        String a = "AA" + String.format("%1$02X",data.length()) + stringToHex(data) + "BB";
+
+        String a = "AA"
+                + String.format("%1$02X",data.length())       // https://stackoverflow.com/a/45495982/9499956
+                + stringToHex(data)
+                + CRC16.getCRC(data) + "BB";
         return a;
     }
 
