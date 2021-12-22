@@ -6,7 +6,6 @@
 package cpt105.cw3;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 
 ;import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author zhaoyihan
+ * @author
  */
 public class Q1{
     public static void main(String[] args) {
@@ -29,7 +28,7 @@ public class Q1{
         JTextField t_dp = new JTextField();
 
         q1Frame.setSize(500,350);
-        q1Frame.setLayout(new BorderLayout(12,12));
+        q1Frame.setLayout(new BorderLayout());
         q1Frame.add(l_rd);
         q1Frame.add(t_rd);
         q1Frame.add(l_dp);
@@ -55,7 +54,8 @@ public class Q1{
                 // grab the text from 'Raw data' field
                 // convert the text to package form
                 // put the text to 'Data package'
-                String pak = DataPacket.convertToDataPacket(t_rd.getText());
+                String message = t_rd.getText();
+                String pak = DataPacket.convertToDataPacket(message);
                 t_dp.setText(pak);
             }
         });
@@ -70,16 +70,22 @@ public class Q1{
 
                 String dat = t_dp.getText();
                 dat = dat.substring(4,dat.length()-6);
+                // header: 1 byte, length: 1 byte
+                // before = 2 byte = 4 char locations
+                // CRC: 2 byte, tail: 1 byte
+                // after = 3 byte = 6 char locations,
+
+                // now dat contains the hex value of message string.
 
                 String dat_str = "";
-                byte i0, i1;
+                byte i0;
                 char c;
-                for (int i = 0; i < dat.length()/2; i++) {
-                    i0 = Byte.parseByte(dat.substring(2*i,2*i+1));
-                    i1 = Byte.parseByte(dat.substring(2*i+1,2*i+2));
+                for (int i = 0; i < dat.length(); i+=2) {
+                    i0 = fromHexStrToByte(dat.substring(i,i+1));
 
-                    i0 = (byte) (i0<<4);
-                    i0 += i1;
+
+                    i0 = (byte) (i0 * 16);
+                    i0 += fromHexStrToByte(dat.substring(i+1,i+2));;
 
                     c = (char) i0;
                     dat_str += c;
@@ -91,5 +97,19 @@ public class Q1{
 
     }
 
+    /**
+     *
+     * @param s - string representing hex values, from "0" - "F" only
+     */
+    public static byte fromHexStrToByte(String s){
+        if ("0123456789".contains(s)){
+            return Byte.parseByte(s);
+        } else{
+            int ind = "abcdef".indexOf(s.toLowerCase());
+            return (byte) (10+ind);
+        }
+
+
+    }
 
 }

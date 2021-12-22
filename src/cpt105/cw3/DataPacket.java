@@ -7,7 +7,7 @@ package cpt105.cw3;;
 
 /**
  *
- * @author zhaoyihan
+ * @author
  */
 public class DataPacket {
     /**
@@ -27,25 +27,18 @@ public class DataPacket {
     }
 
     /**
-     *
-     * @param data
-     * @return
+     * converting the data to DataPacket format
+     * @param message - the message user enters
+     * @return the processed string containing DataPacket
      */
-    public static String convertToDataPacket(String data){
-        int l = data.length();
+    public static String convertToDataPacket(String message){
+        int l = message.length();
 
         String a = "AA"
-                + String.format("%1$02X",data.length())       // https://stackoverflow.com/a/45495982/9499956
-                + stringToHex(data)
-                + CRC16.getCRC(data) + "BB";
+                + String.format("%1$02X",message.length())       // https://stackoverflow.com/a/45495982/9499956
+                + stringToHex(message)
+                + CRC16.getCRC(message) + "BB";
         return a;
     }
 
-    public static void main(String[] args) {
-        String y = "123A";
-        String k = convertToDataPacket(y);
-        System.out.println(k);
-        System.out.println(stringToHex(y));
-
-    }
 }

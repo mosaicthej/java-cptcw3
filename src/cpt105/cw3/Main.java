@@ -8,9 +8,13 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        testing_methods();
-        Q1.main(new String[]{"mm"});
+        // testing_methods();
+        // Q1.main(new String[]{"mm"});
 
+        DataPacketException e1 = new DataPacketException(404, "Data not found");
+
+        System.out.println(e1.getID());
+        System.out.println(e1);
     }
 
     private static void testing_methods() {

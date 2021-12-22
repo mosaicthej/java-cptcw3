@@ -44,6 +44,7 @@ public class CRC16 {
     * @return a string containing the CRC code generated with regards to the input.
     */ // point is to convert string hexData to a byte array.
     public static String getCRC(String hexData){
+        // 把参数hexdata从string类型转换到byte[]（字节array）类型
         return getCRC(hexData.getBytes());
     }
 
