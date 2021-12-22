@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cpt105.cw3;;
+package cpt105.cw3;
 
 
  
@@ -16,7 +16,7 @@ public class CRC16 {
         final int POLYNOMIAL=0X0000A001;
         int i, j;
         for(i=0; i < bytes.length; i++){
-            CRC = CRC^((int) (bytes[i] & 0x000000ff));
+            CRC = CRC^((bytes[i] & 0x000000ff));
             for (j=0; j<8; j++){
                 if ((CRC & 0X00000001) != 0){
                     CRC = CRC>>1;
@@ -44,27 +44,9 @@ public class CRC16 {
     * @return a string containing the CRC code generated with regards to the input.
     */ // point is to convert string hexData to a byte array.
     public static String getCRC(String hexData){
-        return getCRC(hexStringToByteArray(hexData));
+        return getCRC(hexData.getBytes());
     }
 
 
-    /*
-    for example,
-    getCRC('31323341') -> '7BD7'
-    */
-
-    /* for java > 17, now includes:
-    java.util.HexFormat;
-    HexFormat.of().parseHex(s);
-    */ // https://stackoverflow.com/a/140861/9499956
-    public static byte[] hexStringToByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i+1), 16));
-        }
-        return data;
-    }
 }
 
