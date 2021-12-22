@@ -28,13 +28,25 @@ public class Q1{
         JLabel l_dp = new JLabel("Data package");
         JTextField t_dp = new JTextField();
 
-        q1Frame.setLayout(null);
+        q1Frame.setSize(500,350);
+        q1Frame.setLayout(new BorderLayout(12,12));
         q1Frame.add(l_rd);
         q1Frame.add(t_rd);
         q1Frame.add(l_dp);
         q1Frame.add(t_dp);
         q1Frame.add(b_d2p);
         q1Frame.add(b_p2d);
+
+        // setting location on left
+        l_rd.setBounds(35, 80, 100, 30);
+        l_dp.setBounds(35, 160, 100, 30);
+        b_d2p.setBounds(35, 240, 200, 50);
+
+        // setting location on right
+        t_rd.setBounds(235, 80, 200, 60);
+        t_dp.setBounds(235, 160, 200, 60);
+        b_p2d.setBounds(235, 240, 200, 50);
+
 
 
         b_d2p.addActionListener(new ActionListener() {

@@ -32,7 +32,8 @@ public class DataPacket {
      */
     public static String convertToDataPacket(String data){
         int l = data.length();
-        String a = "AA" + "0" + l + stringToHex(data) + "BB";
+        // https://stackoverflow.com/a/45495982/9499956
+        String a = "AA" + String.format("%1$02X",data.length()) + stringToHex(data) + "BB";
         return a;
     }
 
