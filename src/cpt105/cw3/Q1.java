@@ -6,6 +6,7 @@
 package cpt105.cw3;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 ;import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -57,6 +58,12 @@ public class Q1{
                 String message = t_rd.getText();
                 String pak = DataPacket.convertToDataPacket(message);
                 t_dp.setText(pak);
+                Border b;
+                b = t_dp.getBorder();
+
+                System.out.println(t_dp.getX());
+                System.out.println(t_dp.getY());
+
             }
         });
 
@@ -76,20 +83,10 @@ public class Q1{
                 // after = 3 byte = 6 char locations,
 
                 // now dat contains the hex value of message string.
+                // change from hex to string
 
-                String dat_str = "";
-                byte i0;
-                char c;
-                for (int i = 0; i < dat.length(); i+=2) {
-                    i0 = fromHexStrToByte(dat.substring(i,i+1));
+                String dat_str = DataPacket.hexToString(dat);
 
-
-                    i0 = (byte) (i0 * 16);
-                    i0 += fromHexStrToByte(dat.substring(i+1,i+2));;
-
-                    c = (char) i0;
-                    dat_str += c;
-                }
                 t_rd.setText(dat_str);
             }
         });
@@ -97,19 +94,6 @@ public class Q1{
 
     }
 
-    /**
-     *
-     * @param s - string representing hex values, from "0" - "F" only
-     */
-    public static byte fromHexStrToByte(String s){
-        if ("0123456789".contains(s)){
-            return Byte.parseByte(s);
-        } else{
-            int ind = "abcdef".indexOf(s.toLowerCase());
-            return (byte) (10+ind);
-        }
 
-
-    }
 
 }
