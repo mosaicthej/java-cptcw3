@@ -1,7 +1,5 @@
 package cpt105.cw3;
 
-import javax.xml.crypto.Data;
-
 public class DataPacketException extends Exception {
     private int eId;
     private String message;
