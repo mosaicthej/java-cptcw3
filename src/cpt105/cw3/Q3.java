@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 /**
  *
- * @author zhaoyihan
+ * @author
  */
 public class Q3 {
     public static void addStudent(ArrayList Students, int stuId, String name, String gender){
