@@ -49,10 +49,10 @@ public class DataPacket {
      *
      * @param s - string LENGTH==2 representing hex values,
      *              from "00" to "FF".
-     * @return - the byte (8-bit) value accords to the input hex string
+     * @return -  int that contains the unsigned byte (8-bit) value from the string
      */
-    public static byte hexStrToByte(String s){
-        byte b = 0;
+    public static int hexStrToInt(String s){
+        int b = 0;
         b += fromHexCharToByte(s.substring(0,1));
         b <<= 4;
         b += fromHexCharToByte(s.substring(1,2));
@@ -94,13 +94,14 @@ public class DataPacket {
 
     public static void main(String[] args) {
         // testing for fromHexStrToByte()
-        String[] inpArr = {"00", "01", "02", "03"};
-        for (String inp:
-             inpArr) {
-            System.out.println(String.format("input is %s, output is %d", inp,
-                    fromHexCharToByte(inp)));
-        }
+        String[] inpArr = new String[255];
+        String hexStr;
+        for (int i = 0; i <= Byte.MAX_VALUE-Byte.MIN_VALUE; i++) {
+            hexStr = String.format("%02x", i);
 
+            System.out.println(String.format("input is %s, output is %d", hexStr,
+                    hexStrToInt(hexStr)));
+        }
 
     }
 }
