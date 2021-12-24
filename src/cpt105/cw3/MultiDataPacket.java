@@ -72,6 +72,7 @@ public class MultiDataPacket extends DataPacket {
     private static void throwLength() throws DataPacketException{
         throw new DataPacketException(DataPacketException.ERROR_CODE_LENGTH, "length not match");
     }
+
     /**
      * Verifying CRC by generating the a new CRC from the message
      *      and compare with the CRC given.
