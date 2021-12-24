@@ -3,6 +3,9 @@ package cpt105.cw3;
 public class DataPacketException extends Exception {
     private int eId;
     private String message;
+    public static final int ERROR_CODE_LENGTH = 1;
+    public static final int ERROR_CODE_CRC = 2;
+
 
     public DataPacketException (int id, String message){
         this.eId = id;

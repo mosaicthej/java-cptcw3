@@ -3,9 +3,6 @@ package cpt105.cw3;
 import javax.xml.crypto.Data;
 
 public class MultiDataPacket extends DataPacket {
-    private DataPacketException lengthException =
-            new DataPacketException(1, "dataLength section is not correct");
-
     /**
      *
      * @param str
@@ -32,19 +29,27 @@ public class MultiDataPacket extends DataPacket {
         return finalPak;
     }
 
-    public static String[] getMultiDataFromHexDataPacket(String hexData){
+    public static String[] getMultiDataFromHexDataPacket(String hexData) throws DataPacketException {
         String[] dataBodies = splitByHeadtail(hexData);
-        for (String dataBody:dataBodies){
-            if (!verifyLength(dataBody)){
-
+        int i = 0;
+        for (String dataBody:dataBodies) {
+            // data verification
+            if (!verifyLength(dataBody)) {
+                throwLength();
             }
+            if (!verifyCRC(dataBody)) {
+                throwCRC();
+            }
+
+            // translating data from hex to string
+            dataBodies[i] = hexToString(dataBody);
         }
-
-
-
+        return dataBodies;
     }
 
+
     /**
+     *
      *
      * @param textBody: the body part of text that should be checked
      *                | dataLength |   Data  |   CRC  |
@@ -53,13 +58,43 @@ public class MultiDataPacket extends DataPacket {
      * @return true if count of Data: N == dataLength;
      *         false else.
      */
-    private static boolean verifyLength(String textBody){
+    private static boolean verifyLength(String textBody) {
         byte lenHex = DataPacket.fromHexStrToByte(textBody.substring(0,2));
         String strData = DataPacket.hexToString(
                         textBody.substring(2,textBody.length()-4));
         return ((byte) strData.length() == lenHex);
-
     }
+
+    /**
+     * throwing length exception if the length does not match
+     * @throws DataPacketException
+     */
+    private static void throwLength() throws DataPacketException{
+        throw new DataPacketException(DataPacketException.ERROR_CODE_LENGTH, "length not match");
+    }
+    /**
+     * Verifying CRC by generating the a new CRC from the message
+     *      and compare with the CRC given.
+     * @param dataBody: the body part of text that should be checked
+     *                | dataLength |   Data  |   CRC  |
+     *                |------------|---------|--------|
+     *                |   1 Byte   | N Bytes | 2 Byte |
+     * @return true if generated CRC == CRC from the text;
+     *         false else.
+     */
+    private static boolean verifyCRC(String dataBody) {
+        String CRC_old = dataBody.substring(dataBody.length()-2,dataBody.length());
+        String data_text = dataBody.substring(0,dataBody.length()-2);
+
+        String CRC_new = CRC16.getCRC(data_text);
+
+        return (CRC_old == CRC_new);
+    }
+
+    private static void throwCRC() throws DataPacketException{
+        throw new DataPacketException(DataPacketException.ERROR_CODE_CRC, "CRC does not match");
+    }
+
 
     private static String[] splitByHeadtail(String hexData){
         // split by delimiter "BBAA"
@@ -70,9 +105,14 @@ public class MultiDataPacket extends DataPacket {
     }
 
     public static void main(String[] args) {
-        for (String s:getMultiDataFromHexDataPacket("AA034142435085BBAA04313233417BD7BB")){
-            System.out.println(s);
-        };
+        try {
+            for (String s:getMultiDataFromHexDataPacket("AA034142435085BBAA04313233417BD7BB")){
+                System.out.println(s);
+            }
+        } catch (DataPacketException e) {
+            e.printStackTrace();
+        }
+        ;
 
     }
 

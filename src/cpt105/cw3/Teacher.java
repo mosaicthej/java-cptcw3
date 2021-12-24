@@ -7,7 +7,7 @@ package cpt105.cw3;;
 
 /**
  *
- * @author zhaoyihan
+ * @author
  */
 public class Teacher extends Person {
     int teacherId;
