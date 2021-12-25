@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cpt105.cw3;;
+package cpt105.cw3.partB;;
 
 /**
  *
  * @author
  */
-public class Student extends Person {   
-    int stuId;
-    int age;
+public class Person {
+    enum gender{
+        MALE, FEMALE;
+    }
+    String name;   
 }

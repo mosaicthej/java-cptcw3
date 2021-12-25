@@ -1,4 +1,4 @@
-package cpt105.cw3;
+package cpt105.cw3.partA;
 
 public class DataPacketException extends Exception {
     private int eId;

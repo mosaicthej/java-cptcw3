@@ -1,7 +1,4 @@
-package cpt105.cw3;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+package cpt105.cw3.partA;
 
 
 public class Main {

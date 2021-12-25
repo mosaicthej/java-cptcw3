@@ -1,4 +1,4 @@
-package cpt105.cw3;
+package cpt105.cw3.partA;
 
 public class MultiDataPacket extends DataPacket {
     /**
@@ -11,7 +11,7 @@ public class MultiDataPacket extends DataPacket {
         String[] outHexs = new String[l];
 
         for (int i = 0; i < l; i++) {
-            outHexs[i] = DataPacket.stringToHex(str[i]);
+            outHexs[i] = stringToHex(str[i]);
         }
 
         return outHexs;
@@ -21,7 +21,7 @@ public class MultiDataPacket extends DataPacket {
         String partialPak;
         String finalPak = "";
         for (String partialRaw:data) {
-            partialPak = DataPacket.convertToDataPacket(partialRaw);
+            partialPak = convertToDataPacket(partialRaw);
             finalPak += partialPak;
         }
         return finalPak;
@@ -74,8 +74,8 @@ public class MultiDataPacket extends DataPacket {
      *         false else.
      */
     private static boolean verifyLength(String textBody) {
-        int lenHex = DataPacket.hexStrToByteInt(textBody.substring(0, 2));
-        String strData = DataPacket.hexToString(
+        int lenHex = hexStrToByteInt(textBody.substring(0, 2));
+        String strData = hexToString(
                 textBody.substring(2, textBody.length() - 4));
         int strLen = strData.length();
 //        System.out.println(
@@ -111,7 +111,7 @@ public class MultiDataPacket extends DataPacket {
     private static boolean verifyCRC_generateSame(String dataBody) {
         String CRC_old = dataBody.substring(dataBody.length()-4);
         String data_trimmed = dataBody.substring(2,dataBody.length()-4);
-        byte[] strOnByteArr = DataPacket.stringToByteArr(data_trimmed);
+        byte[] strOnByteArr = stringToByteArr(data_trimmed);
 
         String CRC_new = CRC16.getCRC(hexToString(data_trimmed));
         if (!CRC_old.equalsIgnoreCase(CRC_new)){

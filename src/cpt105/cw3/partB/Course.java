@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cpt105.cw3;;
+package cpt105.cw3.partB;;
 
 /**
  *
  * @author
  */
-public class Grade {
-    int stuId;
-    int courseId;
-    int grade;
+public class Course {
+    private int courseId(int id){
+    return id;
+}
+    private String courseName(String coursename){
+        return coursename;
+    }
+
 }

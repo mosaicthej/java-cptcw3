@@ -1,10 +1,9 @@
-package cpt105.cw3;
+package cpt105.cw3.partA;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 public class Q2 extends JFrame{
     /**
