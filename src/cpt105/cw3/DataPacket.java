@@ -27,6 +27,12 @@ public class DataPacket {
     }
 
 
+    /**
+     * Reading the
+     *  translate and the actual String message
+     * @param hex (type String) hex representation of a message string
+     * @return the actual String message
+     */
     public static String hexToString(String hex) {
         String dat_str = "";
         byte i0;
@@ -51,7 +57,7 @@ public class DataPacket {
      *              from "00" to "FF".
      * @return -  int that contains the unsigned byte (8-bit) value from the string
      */
-    public static int hexStrToInt(String s){
+    public static int hexStrToByteInt(String s){
         int b = 0;
         b += fromHexCharToByte(s.substring(0,1));
         b <<= 4;
@@ -73,7 +79,12 @@ public class DataPacket {
         }
     }
 
-
+    public static byte[] stringToByteArr(String data_trimmed) {
+        byte[] data_arr_byte = new byte[data_trimmed.length()/2];
+        for (int i = 0; i < data_trimmed.length(); i+=2) {
+            data_arr_byte[i/2] = (byte) DataPacket.hexStrToByteInt(data_trimmed.substring(i,i+2));
+        } return data_arr_byte;
+    }
 
 
 
@@ -94,15 +105,26 @@ public class DataPacket {
 
     public static void main(String[] args) {
         // testing for fromHexStrToByte()
+        testing_fromHexStrToByte();
+        testing_getCRC("hello");
+    }
+
+    private static void testing_getCRC(String tester) {
+        System.out.println(String.format("CRC for %s is\t %s", tester, CRC16.getCRC(tester)));
+    }
+
+    private static void testing_fromHexStrToByte() {
+        // testing for fromHexStrToByte()
         String[] inpArr = new String[255];
         String hexStr;
         for (int i = 0; i <= Byte.MAX_VALUE-Byte.MIN_VALUE; i++) {
             hexStr = String.format("%02x", i);
 
             System.out.println(String.format("input is %s, output is %d", hexStr,
-                    hexStrToInt(hexStr)));
+                    hexStrToByteInt(hexStr)));
         }
-
     }
+
+
 }
 
